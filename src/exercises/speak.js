@@ -42,8 +42,13 @@ export function renderSpeak(ex, { onDone }) {
   const hear = el('button', { className: 'btn blue', text: '🔊 Escuchar' });
   hear.addEventListener('click', () => speak(ex.answer));
 
+  // Always allow skipping so a failing mic never blocks the lesson.
+  const skip = el('button', { className: 'btn ghost', text: 'Saltar' });
+  skip.addEventListener('click', () => markAndContinue(skip, true, onDone));
+
   wrap.appendChild(mic);
   wrap.appendChild(hear);
+  wrap.appendChild(skip);
   wrap.appendChild(feedback);
   return wrap;
 }
